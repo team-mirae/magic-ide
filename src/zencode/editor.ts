@@ -1342,7 +1342,9 @@ export class Editor {
       } else {
         flush();
         runCls = "";
-        out.push(`<span class="g${cellW === 2 ? " w" : cellW === 0 ? " z" : ""}${c ? " " + c : ""}">${esc(text)}</span>`);
+        // Tabs can span up to TAB_WIDTH cells; .g and .g.w only size one or two.
+        const wide = cellW > 2 ? ` style="width: calc(var(--cw) * ${cellW})"` : "";
+        out.push(`<span class="g${cellW === 2 ? " w" : cellW === 0 ? " z" : ""}${c ? " " + c : ""}"${wide}>${esc(text)}</span>`);
       }
     }
     flush();
